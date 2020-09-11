@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\HealthClinique.Data\HealthClinique.Data.csproj" />
+    <ProjectReference Include="..\HealthClinique.Service\HealthClinique.Service.csproj" />
   </ItemGroup>
 
 

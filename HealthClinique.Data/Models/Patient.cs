@@ -25,6 +25,6 @@ namespace HealthClinique.Data.Models
         [Required]
         public string IdentityNumber { get; set; }
 
-
+       
     }
 }
