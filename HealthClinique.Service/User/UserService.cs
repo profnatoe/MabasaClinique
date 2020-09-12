@@ -100,7 +100,7 @@ namespace HealthClinique.Service.User
                     issuer: _config["AuthSettings:Issuer"],
                     audience: _config["AuthSettings:Audience"],
                     claims: claims,
-                    expires: DateTime.Now.AddDays(3),
+                    expires: DateTime.Now.AddSeconds(15),
                     signingCredentials: new SigningCredentials(key, SecurityAlgorithms.HmacSha256)
                 );
 
