@@ -9,7 +9,7 @@ namespace HealthClinique.Data.Models
     {
         public int Id { get; set; }
         public DateTime CreatedOn { get; set; }
-        public DateTime UpdatedOn { get; set; }
+        public DateTime UpdatedOn { get; set; } 
 
         [MaxLength(50)]
         public string FirstName { get; set; }

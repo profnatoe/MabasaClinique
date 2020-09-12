@@ -41,6 +41,8 @@ namespace HealthClinique.Service.Patients
                         Data = false
                     };
                 }
+                patient.CreatedOn = now;
+                patient.UpdatedOn = now;
 
                 _db.Patients.Add(patient);
                 _db.SaveChanges();
@@ -127,9 +129,29 @@ namespace HealthClinique.Service.Patients
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public Patient GetPatientById(int id)
+        public ServiceResponse<Patient> GetPatientById(int id)
         {
-            return _db.Patients.Find(id);
+            var patient =  _db.Patients.Find(id);
+            var now = DateTime.UtcNow;
+
+            if(patient == null)
+            {
+                return new ServiceResponse<Patient>
+                {
+                    Data = null,
+                    IsSuccess = false,
+                    Message = $"Patient with Id: {id} was not found in the system",
+                    Time = now
+                };
+            }
+
+            return new ServiceResponse<Patient>
+            {
+                Data = patient,
+                Message = $"Patient with Id: {id} has been found!",
+                Time = now,
+                IsSuccess = true
+            };
         }
 
         /// <summary>
@@ -172,8 +194,8 @@ namespace HealthClinique.Service.Patients
                 {
                     Message = $"Successfully updated patient with id {patientToUpdate.Id}",
                     Time = now,
-                    IsSuccess = false,
-                    Data = false
+                    IsSuccess = true,
+                    Data = true
                 };
             }
             catch(Exception e)
