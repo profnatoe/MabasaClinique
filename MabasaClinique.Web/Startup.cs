@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using HealthClinique.Data;
 using HealthClinique.Service.Patients;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -29,6 +30,14 @@ namespace MabasaClinique.Web
         public void ConfigureServices(IServiceCollection services)
         {
 
+            services.AddIdentity<IUser, IRole>(options =>
+            {
+                options.Password.RequireDigit = true;
+                options.Password.RequiredLength = 5;
+                options.Password.RequireLowercase = true;
+                options.Password.RequireNonAlphanumeric = true;
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(2);
+            })
             services.AddDbContext<MabasaDbContext>(opts =>
             {
                 opts.EnableDetailedErrors();
