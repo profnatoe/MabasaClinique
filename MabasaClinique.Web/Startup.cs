@@ -1,6 +1,8 @@
 using System;
+using System.Text;
 using HealthClinique.Data;
 using HealthClinique.Service.Patients;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -8,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 
 namespace MabasaClinique.Web
 {
@@ -34,6 +37,26 @@ namespace MabasaClinique.Web
             })
                 .AddEntityFrameworkStores<MabasaDbContext>()
                 .AddDefaultTokenProviders();
+
+            services.AddAuthentication(auth =>
+                {
+                    auth.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    auth.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                })
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidAudience = Configuration["AuthSettings:Audience"],
+                        ValidIssuer = Configuration["AuthSettings:Issuer"],
+                        RequireExpirationTime = true,
+                        IssuerSigningKey =
+                            new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["AuthSettings:Key"])),
+                        ValidateIssuerSigningKey = true
+                    };
+                });
             services.AddDbContext<MabasaDbContext>(opts =>
             {
                 opts.EnableDetailedErrors();
@@ -55,7 +78,7 @@ namespace MabasaClinique.Web
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
