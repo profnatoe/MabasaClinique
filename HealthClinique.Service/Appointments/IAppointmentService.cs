@@ -15,6 +15,5 @@ namespace HealthClinique.Service.Appointments
 
         ServiceResponse<Appointment> UpdateAppointment(Appointment appointment);
 
-
     }
 }
