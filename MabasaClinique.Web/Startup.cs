@@ -2,6 +2,7 @@ using System;
 using System.Text;
 using HealthClinique.Data;
 using HealthClinique.Service.Patients;
+using HealthClinique.Service.User;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -64,6 +65,7 @@ namespace MabasaClinique.Web
             });
 
             services.AddTransient<IPatientService, PatientService>();
+            services.AddTransient<IUserService, UserService>();
             services.AddControllers();
         }
 
