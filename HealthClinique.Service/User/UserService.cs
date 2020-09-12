@@ -118,7 +118,7 @@ namespace HealthClinique.Service.User
             return new ServiceResponse<bool>()
             {
                 Data = false,
-                Message = "Could not Login, please try again",
+                Message = $"Could not Login, Patient's Email Address: {user.Email} is not registered in the system!",
                 Time = now,
                 IsSuccess = false
             };
