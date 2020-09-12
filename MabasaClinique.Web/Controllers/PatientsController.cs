@@ -1,11 +1,13 @@
 ﻿using HealthClinique.Data.Models;
 using HealthClinique.Service.Patients;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MabasaClinique.Web.Controllers
 {
     [ApiController]
     [Route("api/[controller]/")]
+    [Authorize]
     public class PatientsController : ControllerBase
     {
         private readonly IPatientService _patients;
