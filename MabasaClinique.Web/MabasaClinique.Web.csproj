@@ -23,5 +23,9 @@
     <ProjectReference Include="..\HealthClinique.Service\HealthClinique.Service.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ViewModels" />
+  </ItemGroup>
+
 
 </Project>
