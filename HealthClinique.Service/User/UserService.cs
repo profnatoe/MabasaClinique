@@ -4,6 +4,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using HealthClinique.Data.Models;
+using HealthClinique.Service.Patients;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -15,21 +16,25 @@ namespace HealthClinique.Service.User
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly IConfiguration _config;
-        public UserService(UserManager<IdentityUser> userManager, IConfiguration config)
+        private readonly IPatientService _patient;
+
+        public UserService(UserManager<IdentityUser> userManager, IConfiguration config, IPatientService patient)
         {
             _userManager = userManager;
             _config = config;
+            _patient = patient;
         }
         public async Task<ServiceResponse<bool>> RegisterPatient(RegisterUser user)
         {
             var now = DateTime.UtcNow;
-            
-            if (user == null)
+            var patientAccount = await _userManager.FindByEmailAsync(user.Email);
+
+            if (patientAccount != null)
                 return new ServiceResponse<bool>()
                 {
                     Data = false,
                     IsSuccess = false,
-                    Message = "Model null!",
+                    Message = $"Account with this email address {patientAccount.Email} already exist!",
                     Time = now
                 };
 
@@ -49,9 +54,20 @@ namespace HealthClinique.Service.User
             };
 
             var result = await  _userManager.CreateAsync(identityUser, user.Password);
+            
+            var patient = new Patient
+            {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Age = user.Age,
+                IdentityNumber = user.IdentityNumber,
+                Gender = user.Gender,
+            };
 
             if (result.Succeeded)
             {
+                await _patient.CreatePatient(patient);
+                
                 return new ServiceResponse<bool>()
                 {
                     IsSuccess = true,

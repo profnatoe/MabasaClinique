@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
@@ -25,6 +26,8 @@ namespace HealthClinique.Data.Models
         [Required]
         public string IdentityNumber { get; set; }
 
-       
+        public IdentityUser User { get; set; }
+
+
     }
 }

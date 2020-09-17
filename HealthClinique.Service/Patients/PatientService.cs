@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace HealthClinique.Service.Patients
 {
@@ -25,7 +26,7 @@ namespace HealthClinique.Service.Patients
         /// </summary>
         /// <param name="patient"></param>
         /// <returns></returns>
-        public ServiceResponse<bool> CreatePatient(Patient patient)
+        public async Task<ServiceResponse<bool>> CreatePatient(Patient patient)
         {
             var now = DateTime.UtcNow;
 
@@ -45,7 +46,7 @@ namespace HealthClinique.Service.Patients
                 patient.UpdatedOn = now;
 
                 _db.Patients.Add(patient);
-                _db.SaveChanges();
+                await _db.SaveChangesAsync();
 
                 return new ServiceResponse<bool>
                 {

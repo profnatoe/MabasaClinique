@@ -15,5 +15,19 @@ namespace HealthClinique.Data.Models
         [Required]
         [MaxLength(16)]
         public string ConfirmPassword { get; set; }
+
+        [Required]
+        public string FirstName { get; set; }
+
+        [MaxLength(50)]
+        public string LastName { get; set; }
+
+        [MaxLength(10)]
+        public string Gender { get; set; }
+        
+        public int Age { get; set; }
+        
+        [Required]
+        public string IdentityNumber { get; set; }
     }
 }

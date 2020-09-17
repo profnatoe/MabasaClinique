@@ -2,12 +2,14 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace HealthClinique.Service.Patients
 {
     public interface IPatientService
     {
-        ServiceResponse<bool> CreatePatient(Patient patient);
+    
+        Task<ServiceResponse<bool>> CreatePatient(Patient patient);
 
         ServiceResponse<bool> DeletePatient(int id);
 
