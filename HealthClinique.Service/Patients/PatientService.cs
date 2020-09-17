@@ -130,9 +130,11 @@ namespace HealthClinique.Service.Patients
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public ServiceResponse<Patient> GetPatientById(int id)
+        public ServiceResponse<Patient> GetPatientById(string id)
         {
-            var patient =  _db.Patients.Find(id);
+            var patient = _db.Patients.Where(x => x.User.Id == id).Include(x => x.User).FirstOrDefault();
+              
+
             var now = DateTime.UtcNow;
 
             if(patient == null)

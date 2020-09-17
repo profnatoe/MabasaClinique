@@ -87,21 +87,21 @@ namespace HealthClinique.Service.User
             };
         }
 
-        public async Task<ServiceResponse<bool>> LoginPatient(LoginUser user)
+        public async Task<ServiceResponse<string>> LoginPatient(LoginUser user)
         {
             var patient = await _userManager.FindByEmailAsync(user.Email);
             var now = DateTime.UtcNow;
-            
+           
             if (patient != null)
             {
                 var result = await _userManager.CheckPasswordAsync(patient, user.Password);
 
                 if (!result)
-                    return new ServiceResponse<bool>()
+                    return new ServiceResponse<string>()
                     {
                         Message = "Invalid Password",
                         IsSuccess = false,
-                        Data = false,
+                        Data = "Could not login",
                         Time = now
                     };
 
@@ -117,24 +117,24 @@ namespace HealthClinique.Service.User
                     issuer: _config["AuthSettings:Issuer"],
                     audience: _config["AuthSettings:Audience"],
                     claims: claims,
-                    expires: DateTime.Now.AddSeconds(15),
+                    expires: DateTime.Now.AddSeconds(30),
                     signingCredentials: new SigningCredentials(key, SecurityAlgorithms.HmacSha256)
                 );
 
                 string tokenAsString = new JwtSecurityTokenHandler().WriteToken(token);
 
-                return new ServiceResponse<bool>()
+                return new ServiceResponse<string>()
                 {
                     Message = tokenAsString,
                     IsSuccess = true,
-                    Data = true,
+                    Data = patient.Id,
                     Time = now
                 };
             }
 
-            return new ServiceResponse<bool>()
+            return new ServiceResponse<string>()
             {
-                Data = false,
+                Data = "No Id found!",
                 Message = $"Could not Login, Patient's Email Address: {user.Email} is not registered in the system!",
                 Time = now,
                 IsSuccess = false

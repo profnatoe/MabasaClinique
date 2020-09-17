@@ -25,7 +25,7 @@ namespace MabasaClinique.Web.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult GetPatientById(int id)
+        public ActionResult GetPatientById(string id)
         {
             return Ok(_patients.GetPatientById(id));
         }

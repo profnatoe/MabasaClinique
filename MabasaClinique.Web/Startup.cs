@@ -57,7 +57,8 @@ namespace MabasaClinique.Web
                         RequireExpirationTime = true,
                         IssuerSigningKey =
                             new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["AuthSettings:Key"])),
-                        ValidateIssuerSigningKey = true
+                        ValidateIssuerSigningKey = true,
+                        ClockSkew = TimeSpan.FromSeconds(30)
                     };
                 });
             services.AddDbContext<MabasaDbContext>(opts =>
@@ -83,6 +84,7 @@ namespace MabasaClinique.Web
 
             app.UseRouting();
             app.UseAuthentication();
+            
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

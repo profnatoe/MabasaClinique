@@ -13,7 +13,7 @@ namespace HealthClinique.Service.Patients
 
         ServiceResponse<bool> DeletePatient(int id);
 
-        ServiceResponse<Patient> GetPatientById(int id);
+        ServiceResponse<Patient> GetPatientById(string id);
 
         List<Patient> GetAllPatient();
 
