@@ -62,6 +62,7 @@ namespace HealthClinique.Service.User
                 Age = user.Age,
                 IdentityNumber = user.IdentityNumber,
                 Gender = user.Gender,
+                User = identityUser
             };
 
             if (result.Succeeded)
