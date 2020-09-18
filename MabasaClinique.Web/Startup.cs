@@ -1,6 +1,8 @@
 using System;
 using System.Text;
 using HealthClinique.Data;
+using HealthClinique.Service.Appointments;
+using HealthClinique.Service.Diagnosis;
 using HealthClinique.Service.Patients;
 using HealthClinique.Service.User;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -69,6 +71,8 @@ namespace MabasaClinique.Web
 
             services.AddTransient<IPatientService, PatientService>();
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IAppointmentService, AppointmentService>();
+            services.AddTransient<IPatientDiagnosisService, PatientDiagnosisService>();
             services.AddControllers();
         }
 
