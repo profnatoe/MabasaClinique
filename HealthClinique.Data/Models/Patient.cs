@@ -26,6 +26,7 @@ namespace HealthClinique.Data.Models
         [Required]
         public string IdentityNumber { get; set; }
 
+        public Appointment Appointments { get; set; }
         public IdentityUser User { get; set; }
 
 

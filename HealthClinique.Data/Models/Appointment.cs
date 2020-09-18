@@ -10,10 +10,10 @@ namespace HealthClinique.Data.Models
         public DateTime CreatedOn { get; set; }
         public DateTime UpdatedOn { get; set; }
 
-        public Patient Patient { get; set; }
 
         public bool IsSick { get; set; }
         public bool IsFirstTime { get; set; }
         public string AppointmentType { get; set; }
+        public PatientTests PatientDigsosis { get; set; }
     }
 }

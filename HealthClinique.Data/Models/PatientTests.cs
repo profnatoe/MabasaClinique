@@ -14,6 +14,7 @@ namespace HealthClinique.Data.Models
         public bool IsHIV { get; set; }
         public bool IsSugarDiabetes { get; set; }
         public bool IsCancer { get; set; }
+        public string Prescription { get; set; }
 
         public DateTime NextAppointmentDate { get; set; }
     }

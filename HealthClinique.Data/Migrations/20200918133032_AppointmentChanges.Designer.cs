@@ -3,15 +3,17 @@ using System;
 using HealthClinique.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace HealthClinique.Data.Migrations
 {
     [DbContext(typeof(MabasaDbContext))]
-    partial class MabasaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200918133032_AppointmentChanges")]
+    partial class AppointmentChanges
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
