@@ -2,6 +2,7 @@
 using HealthClinique.Service.Patients;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace MabasaClinique.Web.Controllers
 {
@@ -31,10 +32,10 @@ namespace MabasaClinique.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult CreatePatient([FromBody] Patient patient)
+        public async Task<IActionResult> CreatePatient([FromBody] Patient patient)
         {
             if(ModelState.IsValid)
-                return Ok(_patients.CreatePatient(patient));
+                return Ok(await _patients.CreatePatient(patient));
             return BadRequest("Model not valid");
         }
 

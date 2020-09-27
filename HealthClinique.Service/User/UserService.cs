@@ -119,8 +119,10 @@ namespace HealthClinique.Service.User
                     claims: claims,
                     expires: DateTime.Now.AddSeconds(30),
                     signingCredentials: new SigningCredentials(key, SecurityAlgorithms.HmacSha256)
+                    
                 );
 
+        
                 string tokenAsString = new JwtSecurityTokenHandler().WriteToken(token);
 
                 return new ServiceResponse<string>()

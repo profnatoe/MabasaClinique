@@ -36,7 +36,7 @@ namespace MabasaClinique.Web
                 options.Password.RequiredLength = 5;
                 options.Password.RequireLowercase = true;
                 options.Password.RequireNonAlphanumeric = true;
-                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromSeconds(15);
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromSeconds(30);
                 options.Lockout.MaxFailedAccessAttempts = 3;
                
             })
