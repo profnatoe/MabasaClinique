@@ -17,5 +17,7 @@ namespace HealthClinique.Data.Models
         public string Prescription { get; set; }
 
         public DateTime NextAppointmentDate { get; set; }
+
+        public int AppointmentId { get; set; }
     }
 }

@@ -7,7 +7,7 @@ namespace HealthClinique.Service.Diagnosis
 {
     public interface IPatientDiagnosisService
     {
-        ServiceResponse<bool> Create(PatientTests patient);
+        ServiceResponse<bool> Create(PatientTests patient, int appointmentId);
         List<PatientTests> GetAllDiagnosis();
         ServiceResponse<PatientTests> GetById(int id);
         ServiceResponse<bool> Delete(int id);
