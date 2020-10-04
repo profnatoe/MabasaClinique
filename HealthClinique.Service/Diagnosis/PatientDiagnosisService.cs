@@ -15,45 +15,61 @@ namespace HealthClinique.Service.Diagnosis
         {
             _db = db;
         }
-        public ServiceResponse<bool> Create(PatientTests patient)
+
+        public ServiceResponse<bool> Create(PatientTests patient, int appointmentId)
         {
             var now = DateTime.UtcNow;
+            var appointment = _db.Appointment.Find(appointmentId);
 
-            try
+            if (appointment != null)
             {
-                var tests = new PatientTests
+                try
                 {
-                    IsBloodPressure = patient.IsBloodPressure,
-                    IsCancer = patient.IsCancer,
-                    IsHIV = patient.IsHIV,
-                    Prescription = patient.Prescription,
-                    IsSugarDiabetes = patient.IsSugarDiabetes,
-                    NextAppointmentDate = patient.NextAppointmentDate,
-                    CreatedOn = now,
-                    UpdatedOn = now
-                };
+                    var tests = new PatientTests
+                    {
+                        IsBloodPressure = patient.IsBloodPressure,
+                        IsCancer = patient.IsCancer,
+                        IsHIV = patient.IsHIV,
+                        Prescription = patient.Prescription,
+                        IsSugarDiabetes = patient.IsSugarDiabetes,
+                        NextAppointmentDate = patient.NextAppointmentDate,
+                        CreatedOn = now,
+                        UpdatedOn = now,
+                        AppointmentId = appointment.Id
+                    };
 
-                _db.PatientTests.Add(tests);
-                _db.SaveChanges();
+                    _db.PatientTests.Add(tests);
+                    _db.SaveChanges();
 
+                    return new ServiceResponse<bool>
+                    {
+                        IsSuccess = true,
+                        Message = "Success!",
+                        Time = now,
+                        Data = true
+                    };
+                }
+                catch (Exception e)
+                {
+                    return new ServiceResponse<bool>
+                    {
+                        IsSuccess = false,
+                        Message = e.StackTrace,
+                        Time = now,
+                        Data = false
+                    };
+                }
+            }
+            else
+            {
                 return new ServiceResponse<bool>
                 {
-                    IsSuccess = true,
-                    Message = "Success!",
-                    Time = now,
-                    Data = true
+                    Data = false,
+                    Message = "Could not find Appointment with that Id",
+                    IsSuccess = false,
+                    Time = now
                 };
             }
-            catch(Exception e)
-            {
-                return new ServiceResponse<bool>
-                {
-                    IsSuccess = false,
-                    Message = e.StackTrace,
-                    Time = now,
-                    Data = false
-                };
-            } 
         }
 
         public ServiceResponse<bool> Delete(int id)

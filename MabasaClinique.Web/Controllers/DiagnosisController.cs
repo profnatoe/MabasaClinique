@@ -20,7 +20,7 @@ namespace MabasaClinique.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create([FromBody] PatientTests tests) => Ok(_diagnosis.Create(tests));
+        public ActionResult Create([FromBody] PatientTests tests, int appointmentId) => Ok(_diagnosis.Create(tests, appointmentId));
 
         [HttpGet("{id}")]
         public ActionResult GetById(int id) => Ok(_diagnosis.GetById(id));
